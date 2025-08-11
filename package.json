@@ -1,6 +1,6 @@
 {
   "name": "react-theme-system",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A comprehensive React theme management system that enforces consistency, supports dark/light mode, and eliminates hardcoded styles",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
