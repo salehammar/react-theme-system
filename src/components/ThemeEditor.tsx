@@ -6,15 +6,15 @@ import { Box, Button, Typography } from '../styled';
 interface ColorPickerProps {
   label: string;
   color: string;
-  onChange: (color: string) => void;
+  onChange: (_color: string) => void;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ label, color: colorValue, onChange }) => (
+const ColorPicker: React.FC<ColorPickerProps> = ({ label, color, onChange }) => (
   <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
     <Typography variant="caption" style={{ minWidth: '80px' }}>{label}</Typography>
     <input
       type="color"
-      value={colorValue}
+      value={color}
       onChange={(e) => onChange(e.target.value)}
       style={{
         width: '40px',
@@ -26,7 +26,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ label, color: colorValue, onC
     />
     <input
       type="text"
-      value={colorValue}
+      value={color}
       onChange={(e) => onChange(e.target.value)}
       style={{
         width: '80px',
@@ -42,7 +42,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ label, color: colorValue, onC
 interface SpacingSliderProps {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange: (_value: string) => void;
   min?: number;
   max?: number;
   step?: number;
@@ -50,13 +50,13 @@ interface SpacingSliderProps {
 
 const SpacingSlider: React.FC<SpacingSliderProps> = ({ 
   label, 
-  value: valueStr, 
+  value, 
   onChange, 
   min = 0, 
   max = 100, 
   step = 1 
 }) => {
-  const numericValue = parseInt(valueStr.replace('px', '').replace('rem', ''));
+  const numericValue = parseInt(value.replace('px', '').replace('rem', ''));
   
   return (
     <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -70,7 +70,7 @@ const SpacingSlider: React.FC<SpacingSliderProps> = ({
         onChange={(e) => onChange(`${e.target.value}px`)}
         style={{ flex: 1 }}
       />
-      <Typography variant="caption" style={{ minWidth: '40px' }}>{valueStr}</Typography>
+      <Typography variant="caption" style={{ minWidth: '40px' }}>{value}</Typography>
     </Box>
   );
 };
