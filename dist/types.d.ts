@@ -97,7 +97,7 @@ export interface ThemeContextType {
     theme: Theme;
     isDarkMode: boolean;
     toggleTheme: () => void;
-    updateTheme: (path: string, value: any) => void;
+    updateTheme: (_path: string, _value?: any) => void;
 }
 export interface StyledProps {
     bg?: keyof ThemeColors;

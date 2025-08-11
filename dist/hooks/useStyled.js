@@ -12,7 +12,7 @@ const useStyled = () => {
                 current = current[key];
             }
             else {
-                console.warn(`Theme token not found: ${path}`);
+                // Theme token not found
                 return '';
             }
         }

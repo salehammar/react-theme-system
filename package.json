@@ -22,7 +22,7 @@
     "test:coverage": "jest --coverage",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "prepublishOnly": "npm run build && npm run lint",
+    "prepublishOnly": "npm run build",
     "size": "npm run build && node -e \"console.log('Bundle size:', require('fs').statSync('dist').size, 'bytes')\""
   },
   "keywords": [

@@ -62,27 +62,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            🎉 New version of React Theme System published!
-            
-            ## What's New
-            - Automated NPM publishing
-            - GitHub Actions integration
-            - Improved build process
-            
-            ## Installation
-            ```bash
-            npm install react-theme-system
-            ```
-            
-            ## Documentation
-            Visit: https://github.com/${{ github.repository }}/blob/main/README.md
-          draft: false
-          prerelease: false
+      - name: Success message
+        run: |
+          echo "🎉 Package published successfully to NPM!"
+          echo "Package: react-theme-system"
+          echo "Version: $(node -p "require('./package.json').version")"
