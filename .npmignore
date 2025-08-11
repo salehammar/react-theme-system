@@ -1,0 +1,37 @@
+# Source files
+src/
+examples/
+demo/
+
+# Development files
+.github/
+.eslintrc.json
+tsconfig.json
+*.log
+node_modules/
+
+# Build artifacts
+dist/
+coverage/
+
+# Documentation
+PACKAGE_SUMMARY.md
+*.md
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
