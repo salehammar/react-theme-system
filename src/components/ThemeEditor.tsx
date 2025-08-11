@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useTheme } from '../ThemeProvider';
 import { useStyled } from '../hooks/useStyled';
 import { Box, Button, Typography } from '../styled';
-import { Theme } from '../types';
 
 interface ColorPickerProps {
   label: string;
@@ -10,12 +9,12 @@ interface ColorPickerProps {
   onChange: (color: string) => void;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ label, color, onChange }) => (
+const ColorPicker: React.FC<ColorPickerProps> = ({ label, color: colorValue, onChange }) => (
   <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
     <Typography variant="caption" style={{ minWidth: '80px' }}>{label}</Typography>
     <input
       type="color"
-      value={color}
+      value={colorValue}
       onChange={(e) => onChange(e.target.value)}
       style={{
         width: '40px',
@@ -27,7 +26,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ label, color, onChange }) => 
     />
     <input
       type="text"
-      value={color}
+      value={colorValue}
       onChange={(e) => onChange(e.target.value)}
       style={{
         width: '80px',
@@ -51,13 +50,13 @@ interface SpacingSliderProps {
 
 const SpacingSlider: React.FC<SpacingSliderProps> = ({ 
   label, 
-  value, 
+  value: valueStr, 
   onChange, 
   min = 0, 
   max = 100, 
   step = 1 
 }) => {
-  const numericValue = parseInt(value.replace('px', '').replace('rem', ''));
+  const numericValue = parseInt(valueStr.replace('px', '').replace('rem', ''));
   
   return (
     <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -71,7 +70,7 @@ const SpacingSlider: React.FC<SpacingSliderProps> = ({
         onChange={(e) => onChange(`${e.target.value}px`)}
         style={{ flex: 1 }}
       />
-      <Typography variant="caption" style={{ minWidth: '40px' }}>{value}</Typography>
+      <Typography variant="caption" style={{ minWidth: '40px' }}>{valueStr}</Typography>
     </Box>
   );
 };

@@ -8,7 +8,7 @@ interface ButtonProps extends StyledProps {
   disabled?: boolean;
   loading?: boolean;
   fullWidth?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
 }
 

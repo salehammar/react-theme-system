@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useTheme } from '../ThemeProvider';
 import { Theme, StyledStyles, ThemeTokenPath } from '../types';
 
@@ -13,7 +12,7 @@ export const useStyled = () => {
       if (current && typeof current === 'object' && key in current) {
         current = current[key];
       } else {
-        console.warn(`Theme token not found: ${path}`);
+        // Theme token not found
         return '';
       }
     }
