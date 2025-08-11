@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Theme System Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e1e5e9;
+        }
+        .demo-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        .demo-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .code-block {
+            background: #f6f8fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            padding: 20px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+        .feature-description {
+            color: #666;
+            line-height: 1.5;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #4361ee;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+        .cta-button:hover {
+            background: #3f37c9;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-section">
+            <h1 class="demo-title">🎨 React Theme System</h1>
+            <p class="demo-description">
+                A comprehensive React theme management system that enforces consistency, 
+                supports dark/light mode, and eliminates hardcoded styles. Built with 
+                TypeScript for full type safety and developer experience.
+            </p>
+            <a href="https://github.com/yourusername/react-theme-system" class="cta-button">
+                View on GitHub
+            </a>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">✨ Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">🎨 Theme Management</h3>
+                    <p class="feature-description">
+                        Centralized theme configuration with light/dark mode support. 
+                        All design tokens in one place for easy maintenance.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🔒 Type Safety</h3>
+                    <p class="feature-description">
+                        Full TypeScript support with autocomplete and validation. 
+                        Catch theme errors at compile time.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🚫 No Hardcoded Styles</h3>
+                    <p class="feature-description">
+                        Enforced theme token usage through components and hooks. 
+                        Maintain consistency across your entire application.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🌙 Dark Mode</h3>
+                    <p class="feature-description">
+                        Built-in dark/light mode switching with smooth transitions. 
+                        Perfect for modern user experiences.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🎛️ Runtime Editor</h3>
+                    <p class="feature-description">
+                        Visual theme editor for designers and developers. 
+                        Customize themes without code changes.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">🤖 AI-Friendly</h3>
+                    <p class="feature-description">
+                        Clear patterns for AI-generated code. 
+                        Teach AI to create theme-compliant components.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">🚀 Quick Start</h2>
+            <p class="demo-description">
+                Get started with React Theme System in just a few steps:
+            </p>
+            
+            <h3>1. Installation</h3>
+            <div class="code-block">npm install react-theme-system</div>
+            
+            <h3>2. Basic Usage</h3>
+            <div class="code-block">import React from 'react';
+import { ThemeProvider, Box, Text, Button, useTheme, defaultTheme } from 'react-theme-system';
+
+const App = () => (
+  &lt;ThemeProvider themes={defaultTheme}&gt;
+    &lt;Dashboard /&gt;
+  &lt;/ThemeProvider&gt;
+);
+
+const Dashboard = () => {
+  const { theme, toggleTheme, isDarkMode } = useTheme();
+  
+  return (
+    &lt;Box bg="background" p="lg"&gt;
+      &lt;Text as="h1" variant="h2" color="primary"&gt;
+        Welcome to React Theme System
+      &lt;/Text&gtgt;
+      &lt;Button onClick={toggleTheme} variant="primary"&gt;
+        Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
+      &lt;/Button&gt;
+    &lt;/Box&gt;
+  );
+};</div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">🛠️ CLI Tools</h2>
+            <p class="demo-description">
+                Scaffold new theme projects with our CLI tools:
+            </p>
+            
+            <h3>Create Theme Project</h3>
+            <div class="code-block">npx react-theme-system create-theme</div>
+            
+            <h3>Generate Types</h3>
+            <div class="code-block">npx react-theme-system generate-types</div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">🔍 Linting & Enforcement</h2>
+            <p class="feature-description">
+                ESLint rules to enforce theme compliance and prevent hardcoded styles:
+            </p>
+            <div class="code-block">{
+  "rules": {
+    "no-hardcoded-colors": "error",
+    "no-hardcoded-spacing": "error",
+    "prefer-theme-tokens": "warn"
+  }
+}</div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">📚 Documentation</h2>
+            <p class="demo-description">
+                For complete documentation, examples, and API reference, visit our GitHub repository.
+            </p>
+            <a href="https://github.com/yourusername/react-theme-system" class="cta-button">
+                Read Documentation
+            </a>
+        </div>
+    </div>
+</body>
+</html>
