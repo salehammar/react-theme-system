@@ -2,7 +2,7 @@ import React from 'react';
 import { useStyled } from '../hooks/useStyled';
 import { StyledProps } from '../types';
 
-interface TextProps extends StyledProps {
+interface TypographyProps extends StyledProps {
   as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label' | 'div';
   variant?: 'body' | 'caption' | 'overline' | 'button' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   align?: 'left' | 'center' | 'right' | 'justify';
@@ -10,7 +10,7 @@ interface TextProps extends StyledProps {
   noWrap?: boolean;
 }
 
-export const Text: React.FC<TextProps> = ({
+export const Typography: React.FC<TypographyProps> = ({
   as = 'p',
   variant = 'body',
   align = 'left',

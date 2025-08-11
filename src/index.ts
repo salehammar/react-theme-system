@@ -4,7 +4,7 @@ export { useStyled } from './hooks';
 export { defaultTheme } from './themes';
 
 // Styled Components
-export { Box, Text, Button } from './styled';
+export { Box, Typography, Button } from './styled';
 
 // Theme Editor
 export { ThemeEditor } from './components';

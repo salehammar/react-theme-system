@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useTheme } from '../ThemeProvider';
 import { useStyled } from '../hooks/useStyled';
-import type { Theme } from '../types';
+import { Box, Button, Typography } from '../styled';
+import { Theme } from '../types';
 
 interface ColorPickerProps {
   label: string;
@@ -11,7 +12,7 @@ interface ColorPickerProps {
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ label, color, onChange }) => (
   <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-    <Text variant="caption" style={{ minWidth: '80px' }}>{label}</Text>
+    <Typography variant="caption" style={{ minWidth: '80px' }}>{label}</Typography>
     <input
       type="color"
       value={color}
@@ -60,7 +61,7 @@ const SpacingSlider: React.FC<SpacingSliderProps> = ({
   
   return (
     <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <Text variant="caption" style={{ minWidth: '80px' }}>{label}</Text>
+      <Typography variant="caption" style={{ minWidth: '80px' }}>{label}</Typography>
       <input
         type="range"
         min={min}
@@ -70,7 +71,7 @@ const SpacingSlider: React.FC<SpacingSliderProps> = ({
         onChange={(e) => onChange(`${e.target.value}px`)}
         style={{ flex: 1 }}
       />
-      <Text variant="caption" style={{ minWidth: '40px' }}>{value}</Text>
+      <Typography variant="caption" style={{ minWidth: '40px' }}>{value}</Typography>
     </Box>
   );
 };
@@ -119,7 +120,7 @@ export const ThemeEditor: React.FC = () => {
       style={{ maxWidth: '600px', margin: '0 auto' }}
     >
       <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-        <Text as="h2" variant="h2" color="primary">Theme Editor</Text>
+        <Typography as="h2" variant="h2" color="primary">Theme Editor</Typography>
         <Button onClick={toggleTheme} variant="outline" size="sm">
           {isDarkMode ? '☀️ Light' : '🌙 Dark'} Mode
         </Button>
@@ -143,7 +144,7 @@ export const ThemeEditor: React.FC = () => {
       {/* Colors Tab */}
       {activeTab === 'colors' && (
         <Box>
-          <Text as="h3" variant="h3" p="sm">Color Palette</Text>
+          <Typography as="h3" variant="h3" p="sm">Color Palette</Typography>
           <ColorPicker
             label="Primary"
             color={theme.colors.primary}
@@ -175,7 +176,7 @@ export const ThemeEditor: React.FC = () => {
       {/* Spacing Tab */}
       {activeTab === 'spacing' && (
         <Box>
-          <Text as="h3" variant="h3" p="sm">Spacing Scale</Text>
+          <Typography as="h3" variant="h3" p="sm">Spacing Scale</Typography>
           <SpacingSlider
             label="Small"
             value={theme.spacing.sm}
@@ -203,9 +204,9 @@ export const ThemeEditor: React.FC = () => {
       {/* Typography Tab */}
       {activeTab === 'typography' && (
         <Box>
-          <Text as="h3" variant="h3" p="sm">Typography</Text>
+          <Typography as="h3" variant="h3" p="sm">Typography</Typography>
           <Box p="sm" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Text variant="caption" style={{ minWidth: '80px' }}>Base Font</Text>
+            <Typography variant="caption" style={{ minWidth: '80px' }}>Base Font</Typography>
             <select
               value={theme.typography.fontSize.base}
               onChange={(e) => handleTypographyChange('typography.fontSize.base', e.target.value)}
@@ -244,9 +245,9 @@ export const ThemeEditor: React.FC = () => {
         borderRadius="md" 
         style={{ border: `1px solid ${getColor('border')}` }}
       >
-        <Text as="h4" variant="h4" color="primary" p="sm">Preview</Text>
+        <Typography as="h4" variant="h4" color="primary" p="sm">Preview</Typography>
         <Box p="md" bg="surface" borderRadius="sm" m="sm">
-          <Text>This is how your theme looks with the current settings.</Text>
+          <Typography>This is how your theme looks with the current settings.</Typography>
         </Box>
         <Box style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
           <Button size="sm">Primary</Button>

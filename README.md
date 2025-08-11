@@ -26,7 +26,7 @@ npm install react-theme-system
 
 ```tsx
 import React from 'react';
-import { ThemeProvider, Box, Text, Button, useTheme, defaultTheme } from 'react-theme-system';
+import { ThemeProvider, Box, Typography, Button, useTheme, defaultTheme } from 'react-theme-system';
 
 const App = () => (
   <ThemeProvider themes={defaultTheme}>
@@ -39,14 +39,14 @@ const Dashboard = () => {
   
   return (
     <Box bg="background" p="lg">
-      <Text as="h1" variant="h2" color="primary" p="md">
+      <Typography as="h1" variant="h2" color="primary" p="md">
         Welcome to React Theme System
-      </Text>
+      </Typography>
       
       <Box bg="surface" p="md" borderRadius="md" shadow="md" m="md">
-        <Text color="textSecondary" p="sm">
+        <Typography color="textSecondary" p="sm">
           This component uses theme tokens for consistent styling
-        </Text>
+        </Typography>
         
         <Box style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
           <Button onClick={toggleTheme} variant="primary">
@@ -127,20 +127,20 @@ import { Box } from 'react-theme-system';
 - `fontSize`: Typography size token
 - `fontWeight`: Typography weight token
 
-### Text Component
+### Typography Component
 
 Typography component with semantic variants:
 
 ```tsx
-import { Text } from 'react-theme-system';
+import { Typography } from 'react-theme-system';
 
-<Text as="h1" variant="h2" color="primary" p="md">
+<Typography as="h1" variant="h2" color="primary" p="md">
   Heading Text
-</Text>
+</Typography>
 
-<Text variant="body" color="textSecondary">
+<Typography variant="body" color="textSecondary">
   Body text with secondary color
-</Text>
+</Typography>
 ```
 
 **Props:**
@@ -322,9 +322,9 @@ AI-friendly patterns for consistent styling:
 ```tsx
 // ✅ Good - Using theme tokens
 <Box bg="surface" p="md" borderRadius="md">
-  <Text color="text" fontSize="base">
+  <Typography color="text" fontSize="base">
     Content
-  </Text>
+  </Typography>
 </Box>
 
 // ❌ Bad - Hardcoded values
@@ -415,7 +415,7 @@ react-theme-system/
 │   │   └── useStyled.ts       # Styling utilities
 │   ├── styled/
 │   │   ├── Box.tsx            # Layout component
-│   │   ├── Text.tsx           # Typography component
+│   │   ├── Typography.tsx     # Typography component
 │   │   └── Button.tsx         # Button component
 │   ├── components/
 │   │   └── ThemeEditor.tsx    # Visual theme editor
@@ -468,7 +468,7 @@ const Dashboard = () => {
       {/* Header */}
       <Box bg="surface" p="lg" shadow="sm" borderBottom="1px solid" style={{ borderColor: theme.colors.border }}>
         <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text as="h1" variant="h2" color="primary">Dashboard</Text>
+          <Typography as="h1" variant="h2" color="primary">Dashboard</Typography>
           <Button onClick={toggleTheme} variant="outline">
             {theme.isDarkMode ? '☀️' : '🌙'}
           </Button>
@@ -478,8 +478,8 @@ const Dashboard = () => {
       {/* Content */}
       <Box p="lg">
         <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-          <Text as="h2" variant="h3" color="text" p="sm">Welcome</Text>
-          <Text color="textSecondary">This is your dashboard content.</Text>
+          <Typography as="h2" variant="h3" color="text" p="sm">Welcome</Typography>
+          <Typography color="textSecondary">This is your dashboard content.</Typography>
         </Box>
       </Box>
     </Box>
@@ -493,7 +493,7 @@ const Dashboard = () => {
 const Form = () => {
   return (
     <Box bg="surface" p="lg" borderRadius="lg" shadow="md">
-      <Text as="h2" variant="h3" color="primary" p="sm">Contact Form</Text>
+      <Typography as="h2" variant="h3" color="primary" p="sm">Contact Form</Typography>
       
       <Box style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <input 

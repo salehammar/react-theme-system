@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider, Box, Text, Button, useTheme, defaultTheme, ThemeEditor } from 'react-theme-system';
+import { ThemeProvider, Box, Typography, Button, useTheme, defaultTheme, ThemeEditor } from 'react-theme-system';
 
 const Header = () => {
   const { theme, toggleTheme, isDarkMode } = useTheme();
@@ -13,7 +13,7 @@ const Header = () => {
       style={{ borderColor: theme.colors.border }}
     >
       <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text as="h1" variant="h2" color="primary">React Theme System</Text>
+        <Typography as="h1" variant="h2" color="primary">React Theme System</Typography>
         <Button onClick={toggleTheme} variant="outline" size="sm">
           {isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
         </Button>
@@ -35,7 +35,7 @@ const Sidebar = () => {
         minHeight: 'calc(100vh - 80px)'
       }}
     >
-      <Text as="h3" variant="h4" color="primary" p="sm">Navigation</Text>
+      <Typography as="h3" variant="h4" color="primary" p="sm">Navigation</Typography>
       <Box style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         <Box 
           p="sm" 
@@ -44,7 +44,7 @@ const Sidebar = () => {
           style={{ cursor: 'pointer' }}
           hover={{ bg: 'primary', color: 'white' }}
         >
-          <Text>Dashboard</Text>
+          <Typography>Dashboard</Typography>
         </Box>
         <Box 
           p="sm" 
@@ -53,7 +53,7 @@ const Sidebar = () => {
           style={{ cursor: 'pointer' }}
           hover={{ bg: 'primary', color: 'white' }}
         >
-          <Text>Components</Text>
+          <Typography>Components</Typography>
         </Box>
         <Box 
           p="sm" 
@@ -62,7 +62,7 @@ const Sidebar = () => {
           style={{ cursor: 'pointer' }}
           hover={{ bg: 'primary', color: 'white' }}
         >
-          <Text>Theme Editor</Text>
+          <Typography>Theme Editor</Typography>
         </Box>
       </Box>
     </Box>
@@ -74,23 +74,23 @@ const ComponentShowcase = () => {
   
   return (
     <Box p="lg">
-      <Text as="h2" variant="h3" color="primary" p="md">Component Showcase</Text>
+      <Typography as="h2" variant="h3" color="primary" p="md">Component Showcase</Typography>
       
       {/* Typography Examples */}
       <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-        <Text as="h3" variant="h4" color="text" p="sm">Typography</Text>
+        <Typography as="h3" variant="h4" color="text" p="sm">Typography</Typography>
         <Box style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <Text as="h1" variant="h1" color="primary">Heading 1</Text>
-          <Text as="h2" variant="h2" color="secondary">Heading 2</Text>
-          <Text as="h3" variant="h3" color="text">Heading 3</Text>
-          <Text variant="body" color="textSecondary">Body text with secondary color</Text>
-          <Text variant="caption" color="textSecondary">Caption text</Text>
+          <Typography as="h1" variant="h1" color="primary">Heading 1</Typography>
+          <Typography as="h2" variant="h2" color="secondary">Heading 2</Typography>
+          <Typography as="h3" variant="h3" color="text">Heading 3</Typography>
+          <Typography variant="body" color="textSecondary">Body text with secondary color</Typography>
+          <Typography variant="caption" color="textSecondary">Caption text</Typography>
         </Box>
       </Box>
       
       {/* Button Examples */}
       <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-        <Text as="h3" variant="h4" color="text" p="sm">Buttons</Text>
+        <Typography as="h3" variant="h4" color="text" p="sm">Buttons</Typography>
         <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
@@ -114,63 +114,63 @@ const ComponentShowcase = () => {
       
       {/* Layout Examples */}
       <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-        <Text as="h3" variant="h4" color="text" p="sm">Layout & Spacing</Text>
+        <Typography as="h3" variant="h4" color="text" p="sm">Layout & Spacing</Typography>
         <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
           <Box bg="primary" p="xs" borderRadius="sm" color="white">
-            <Text align="center">Extra Small Padding</Text>
+            <Typography align="center">Extra Small Padding</Typography>
           </Box>
           <Box bg="secondary" p="sm" borderRadius="sm" color="white">
-            <Text align="center">Small Padding</Text>
+            <Typography align="center">Small Padding</Typography>
           </Box>
           <Box bg="success" p="md" borderRadius="sm" color="white">
-            <Text align="center">Medium Padding</Text>
+            <Typography align="center">Medium Padding</Typography>
           </Box>
           <Box bg="warning" p="lg" borderRadius="sm" color="white">
-            <Text align="center">Large Padding</Text>
+            <Typography align="center">Large Padding</Typography>
           </Box>
         </Box>
       </Box>
       
       {/* Shadow Examples */}
       <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-        <Text as="h3" variant="h4" color="text" p="sm">Shadows</Text>
+        <Typography as="h3" variant="h4" color="text" p="sm">Shadows</Typography>
         <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
           <Box bg="background" p="md" borderRadius="md" shadow="sm">
-            <Text align="center">Small Shadow</Text>
+            <Typography align="center">Small Shadow</Typography>
           </Box>
           <Box bg="background" p="md" borderRadius="md" shadow="md">
-            <Text align="center">Medium Shadow</Text>
+            <Typography align="center">Medium Shadow</Typography>
           </Box>
           <Box bg="background" p="md" borderRadius="md" shadow="lg">
-            <Text align="center">Large Shadow</Text>
+            <Typography align="center">Large Shadow</Typography>
           </Box>
           <Box bg="background" p="md" borderRadius="md" shadow="xl">
-            <Text align="center">Extra Large Shadow</Text>
+            <Typography align="center">Extra Large Shadow</Typography>
           </Box>
         </Box>
       </Box>
       
       {/* Border Radius Examples */}
       <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-        <Text as="h3" variant="h4" color="text" p="sm">Border Radius</Text>
+        <Typography as="h3" variant="h4" color="text" p="sm">Border Radius</Typography>
         <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '16px' }}>
           <Box bg="info" p="md" borderRadius="none" color="white">
-            <Text align="center">No Radius</Text>
+            <Typography align="center">No Radius</Typography>
           </Box>
           <Box bg="info" p="md" borderRadius="sm" color="white">
-            <Text align="center">Small</Text>
+            <Typography align="center">Small</Typography>
           </Box>
           <Box bg="info" p="md" borderRadius="md" color="white">
-            <Text align="center">Medium</Text>
+            <Typography align="center">Medium</Typography>
           </Box>
           <Box bg="info" p="md" borderRadius="lg" color="white">
-            <Text align="center">Large</Text>
+            <Typography align="center">Large</Typography>
           </Box>
           <Box bg="info" p="md" borderRadius="xl" color="white">
-            <Text align="center">Extra Large</Text>
+            <Typography align="center">Extra Large</Typography>
           </Box>
           <Box bg="info" p="md" borderRadius="full" color="white">
-            <Text align="center">Full</Text>
+            <Typography align="center">Full</Typography>
           </Box>
         </Box>
       </Box>
