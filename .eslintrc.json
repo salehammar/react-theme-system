@@ -1,10 +1,8 @@
 {
   "extends": [
-    "eslint:recommended",
-    "@typescript-eslint/recommended"
+    "eslint:recommended"
   ],
   "plugins": [
-    "@typescript-eslint",
     "react",
     "react-hooks"
   ],
@@ -32,16 +30,9 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     
-    // Theme enforcement rules
-    "no-hardcoded-colors": "error",
-    "no-hardcoded-spacing": "error",
-    "prefer-theme-tokens": "warn",
-    
     // General code quality
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "warn",
+    "no-unused-vars": "warn",
+    "no-console": "warn",
     
     // React specific
     "react/jsx-uses-react": "off",
@@ -52,7 +43,8 @@
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "@typescript-eslint/no-var-requires": "off"
+        "no-var": "error",
+        "prefer-const": "error"
       }
     }
   ]

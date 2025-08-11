@@ -1,11 +1,12 @@
 {
   "name": "react-theme-system",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A comprehensive React theme management system that enforces consistency, supports dark/light mode, and eliminates hardcoded styles",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "bin",
     "theme.config.js",
     "README.md"
   ],
@@ -13,7 +14,6 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "prepare": "npm run build",
-    "postinstall": "node bin/generate-types.js",
     "create-theme": "node bin/create-theme.js",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
@@ -49,8 +49,8 @@
     "@types/jest": "^29.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.0.0",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -59,16 +59,16 @@
     "typescript": "^5.0.0"
   },
   "bin": {
-    "create-theme": "./bin/create-theme.js"
+    "create-theme": "bin/create-theme.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/react-theme-system.git"
+    "url": "https://github.com/salehammar/react-theme-system.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/react-theme-system/issues"
+    "url": "https://github.com/salehammar/react-theme-system/issues"
   },
-  "homepage": "https://github.com/yourusername/react-theme-system#readme",
+  "homepage": "https://github.com/salehammar/react-theme-system#readme",
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=8.0.0"

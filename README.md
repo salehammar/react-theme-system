@@ -529,9 +529,10 @@ MIT License - see LICENSE file for details
 
 ## 🆘 Support
 
-- 📖 [Documentation](https://github.com/yourusername/react-theme-system)
-- 🐛 [Issues](https://github.com/yourusername/react-theme-system/issues)
-- 💬 [Discussions](https://github.com/yourusername/react-theme-system/discussions)
+- 📖 [Documentation](https://github.com/salehammar/react-theme-system)
+- 🐛 [Issues](https://github.com/salehammar/react-theme-system/issues)
+- 💬 [Discussions](https://github.com/salehammar/react-theme-system/
+discussions)
 
 ---
 
