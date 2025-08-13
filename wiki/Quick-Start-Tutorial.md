@@ -38,8 +38,9 @@ Replace your `src/App.tsx` with:
 
 ```tsx
 import React from 'react';
-import { ThemeProvider, Box, Typography, Button, defaultTheme } from 'react-theme-system';
+import { ThemeProvider, defaultTheme } from 'react-theme-system';
 import './App.css';
+```
 
 function App() {
   return (
@@ -59,21 +60,33 @@ function App() {
 }
 
 function Dashboard() {
+  const { theme, isDarkMode, toggleTheme } = useTheme();
+  
   return (
-    <Box p="lg" bg="background" style={{ minHeight: '100vh' }}>
-      <Typography variant="h1" style={{ marginBottom: '1rem' }}>
+    <div style={{ 
+      backgroundColor: theme.colors.background,
+      color: theme.colors.text.primary,
+      minHeight: '100vh',
+      padding: theme.spacing.lg
+    }}>
+      <h1 style={{ marginBottom: theme.spacing.md }}>
         My Themed Dashboard
-      </Typography>
+      </h1>
       
-      <Box p="md" bg="surface" borderRadius="md" shadow="md">
-        <Typography variant="h2" style={{ marginBottom: '0.5rem' }}>
+      <div style={{ 
+        backgroundColor: theme.colors.surface,
+        padding: theme.spacing.md,
+        borderRadius: theme.borderRadius.md,
+        boxShadow: theme.shadows.md
+      }}>
+        <h2 style={{ marginBottom: theme.spacing.sm }}>
           Welcome to React Theme System!
-        </Typography>
-        <Typography variant="body">
+        </h2>
+        <p>
           This is your first themed component. Try switching between light and dark modes!
-        </Typography>
-      </Box>
-    </Box>
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -88,7 +101,8 @@ Create a new component `src/components/ThemeToggle.tsx` using the new headless h
 
 ```tsx
 import React from 'react';
-import { useThemeToggle, useThemeToggleWithSystem, Button, Box } from 'react-theme-system';
+import { useThemeToggle, useThemeToggleWithSystem } from 'react-theme-system';
+```
 
 // Basic theme toggle with headless hook
 export function ThemeToggle() {
@@ -97,34 +111,44 @@ export function ThemeToggle() {
   // Handle SSR safely
   if (!isHydrated) {
     return (
-      <Box 
-        position="fixed" 
-        top="md" 
-        right="md" 
-        zIndex="modal"
+      <button 
+        style={{
+          position: 'fixed',
+          top: '1rem',
+          right: '1rem',
+          zIndex: 1000,
+          padding: '0.5rem 1rem',
+          backgroundColor: '#ccc',
+          border: 'none',
+          borderRadius: '0.25rem',
+          cursor: 'not-allowed'
+        }}
+        disabled
       >
-        <Button variant="secondary" disabled>
-          Loading...
-        </Button>
-      </Box>
+        Loading...
+      </button>
     );
   }
 
   return (
-    <Box 
-      position="fixed" 
-      top="md" 
-      right="md" 
-      zIndex="modal"
+    <button 
+      style={{
+        position: 'fixed',
+        top: '1rem',
+        right: '1rem',
+        zIndex: 1000,
+        padding: '0.5rem 1rem',
+        backgroundColor: isDark ? '#007bff' : '#6c757d',
+        color: 'white',
+        border: 'none',
+        borderRadius: '0.25rem',
+        cursor: 'pointer'
+      }}
+      onClick={toggle}
+      aria-label={label}
     >
-      <Button 
-        variant={isDark ? "primary" : "secondary"}
-        onClick={toggle}
-        aria-label={label}
-      >
-        {icon} {isDark ? 'Light Mode' : 'Dark Mode'}
-      </Button>
-    </Box>
+      {icon} {isDark ? 'Light Mode' : 'Dark Mode'}
+    </button>
   );
 }
 

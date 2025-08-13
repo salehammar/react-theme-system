@@ -8,11 +8,11 @@ Welcome to the **React Theme System** wiki! This comprehensive guide will help y
 # Install the package
 npm install react-theme-system
 
-# Create a new theme project
-npx react-theme-system create-theme
+# Create a new theme project (if using locally)
+npm run create-theme
 
-# Generate TypeScript types
-npx react-theme-system generate-types
+# Generate TypeScript types (if using locally)
+npm run generate-types
 ```
 
 ## 📚 Wiki Sections
