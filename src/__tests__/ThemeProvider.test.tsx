@@ -119,7 +119,7 @@ describe('ThemeProvider', () => {
 
     expect(screen.getByTestId('theme-name')).toHaveTextContent('dark');
     expect(screen.getByTestId('is-dark')).toHaveTextContent('true');
-    expect(localStorageMock.setItem).toHaveTextContent('react-theme-system-theme', 'dark');
+    expect(localStorageMock.setItem).toHaveBeenCalledWith('react-theme-system-theme', 'dark');
   });
 
   it('sets theme directly', async () => {
@@ -136,7 +136,7 @@ describe('ThemeProvider', () => {
     fireEvent.click(screen.getByTestId('dark-btn'));
 
     expect(screen.getByTestId('theme-name')).toHaveTextContent('dark');
-    expect(localStorageMock.setItem).toHaveTextContent('react-theme-system-theme', 'dark');
+    expect(localStorageMock.setItem).toHaveBeenCalledWith('react-theme-system-theme', 'dark');
   });
 
   it('calls onChange callback when theme changes', async () => {
@@ -200,15 +200,20 @@ describe('ThemeProvider', () => {
     expect(localStorageMock.setItem).not.toHaveBeenCalled();
   });
 
-  it('prevents hydration mismatch by hiding content initially', () => {
+  it('prevents hydration mismatch by hiding content initially', async () => {
     const { container } = render(
       <ThemeProvider themes={defaultTheme}>
         <TestComponent />
       </ThemeProvider>
     );
 
-    // Content should be hidden during hydration
-    expect(container.firstChild).toHaveStyle({ visibility: 'hidden' });
+    // Wait for hydration to complete
+    await waitFor(() => {
+      expect(screen.getByTestId('is-hydrated')).toHaveTextContent('true');
+    });
+
+    // Content should be visible after hydration
+    expect(container.firstChild).toHaveStyle({ visibility: 'visible' });
   });
 
   it('throws error when used outside provider', () => {

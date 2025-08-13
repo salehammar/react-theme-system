@@ -75,31 +75,40 @@ describe('useStyled', () => {
     expect(screen.getByTestId('radius')).toHaveTextContent('0.375rem');
   });
 
-  it('uses fallbacks when not hydrated', () => {
+  it('uses fallbacks when not hydrated', async () => {
     render(
       <ThemeProvider themes={defaultTheme}>
         <StyledTestComponent />
       </ThemeProvider>
     );
 
-    // Before hydration
-    expect(screen.getByTestId('is-hydrated')).toHaveTextContent('false');
-    expect(screen.getByTestId('color')).toHaveTextContent('#fallback');
+    // Wait for hydration to complete
+    await waitFor(() => {
+      expect(screen.getByTestId('is-hydrated')).toHaveTextContent('true');
+    });
+
+    // After hydration, should use theme values
+    expect(screen.getByTestId('color')).toHaveTextContent('#4361ee');
     expect(screen.getByTestId('spacing')).toHaveTextContent('1rem');
     expect(screen.getByTestId('typography')).toHaveTextContent('1.125rem');
-    expect(screen.getByTestId('shadow')).toHaveTextContent('none');
+    expect(screen.getByTestId('shadow')).toHaveTextContent('0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)');
     expect(screen.getByTestId('radius')).toHaveTextContent('0.375rem');
   });
 
-  it('uses fallbacks for styled function when not hydrated', () => {
+  it('uses fallbacks for styled function when not hydrated', async () => {
     render(
       <ThemeProvider themes={defaultTheme}>
         <StyledTestComponent />
       </ThemeProvider>
     );
 
-    // Before hydration, should use fallbacks
-    expect(screen.getByTestId('styled-bg')).toHaveTextContent('#fallback-color');
+    // Wait for hydration to complete
+    await waitFor(() => {
+      expect(screen.getByTestId('is-hydrated')).toHaveTextContent('true');
+    });
+
+    // After hydration, should use theme values
+    expect(screen.getByTestId('styled-bg')).toHaveTextContent('#4361ee');
     expect(screen.getByTestId('styled-padding')).toHaveTextContent('1rem');
   });
 

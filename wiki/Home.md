@@ -70,7 +70,7 @@ npx react-theme-system generate-types
 
 - **🎨 Centralized Theme Management**: Single source of truth for all design tokens
 - **🌙 Dark Mode Support**: Built-in light/dark mode switching with persistence
-- **🔒 Type Safety**: Full TypeScript support with strict validation
+- **🔒 Type Safety**: Full TypeScript support with strict validation and schema validation
 - **⚡ SSR Ready**: Server-side rendering support with hydration safety
 - **🛡️ Error Handling**: Graceful fallbacks and error recovery
 - **🚫 No Hardcoded Styles**: Enforced theme token usage
@@ -79,6 +79,21 @@ npx react-theme-system generate-types
 - **🔍 Linting**: ESLint rules for theme compliance
 - **🧪 Testing**: Comprehensive test coverage
 - **🤖 AI-Friendly**: Clear patterns for AI-generated code
+- **🌐 System Theme Sync**: Automatic OS theme detection and synchronization
+- **🧩 Headless UI**: Decoupled logic hooks for maximum flexibility
+- **🔍 Theme Validation**: Comprehensive theme structure validation
+- **🎨 Enhanced CSS Variables**: System theme support with graceful fallbacks
+
+## 🆕 What's New in v1.1.0
+
+- **🌐 System Theme Detection**: Automatic OS theme preference detection and sync
+- **🧩 Headless UI Hooks**: `useThemeToggle` and `useThemeToggleWithSystem` for decoupled logic
+- **🔍 Enhanced Theme Validation**: Comprehensive schema validation with detailed error messages
+- **🎨 Enhanced Theme Structure**: Nested text colors, dynamic spacing scale, and more design tokens
+- **🎨 Enhanced CSS Variables**: System theme support with high contrast and reduced motion
+- **🔧 Enhanced Utilities**: `getToken` and `getCSSVariable` utilities for better fallbacks
+- **📦 Better Tree-Shaking**: Modular exports for optimized bundle sizes
+- **🎯 Improved Developer Experience**: Better autocomplete and type safety
 
 ## 🆕 What's New in v1.0.3
 

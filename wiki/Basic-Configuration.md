@@ -94,6 +94,73 @@ function App() {
 }
 ```
 
+## 🌙 Enhanced Configuration Options
+
+### System Theme Detection
+
+Enable automatic OS theme preference detection:
+
+```tsx
+import { ThemeProvider, defaultTheme } from 'react-theme-system';
+
+function App() {
+  return (
+    <ThemeProvider 
+      themes={defaultTheme}
+      enableSystemTheme={true} // Enable OS theme detection
+      defaultTheme="light"
+    >
+      <YourAppContent />
+    </ThemeProvider>
+  );
+}
+```
+
+### Theme Validation
+
+Enable theme validation to catch issues early:
+
+```tsx
+import { ThemeProvider, defaultTheme } from 'react-theme-system';
+
+function App() {
+  return (
+    <ThemeProvider 
+      themes={defaultTheme}
+      validateTheme={true} // Enable theme validation
+      enableSystemTheme={true}
+    >
+      <YourAppContent />
+    </ThemeProvider>
+  );
+}
+```
+
+### Complete Configuration
+
+```tsx
+import { ThemeProvider, defaultTheme } from 'react-theme-system';
+
+function App() {
+  return (
+    <ThemeProvider 
+      themes={defaultTheme}
+      defaultTheme="light"
+      enablePersistence={true}
+      enableSystemTheme={true}
+      validateTheme={true}
+      onChange={(theme) => {
+        console.log('Theme changed to:', theme);
+        // Analytics tracking
+        analytics.track('theme_changed', { theme });
+      }}
+    >
+      <YourAppContent />
+    </ThemeProvider>
+  );
+}
+```
+
 ## 🌙 Dark Mode Configuration
 
 ### Automatic Dark Mode Detection

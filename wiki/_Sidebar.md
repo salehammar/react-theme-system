@@ -16,13 +16,17 @@
 - ThemeProvider *(Coming Soon)*
 - useTheme Hook *(Coming Soon)*
 - useStyled Hook *(Coming Soon)*
+- useThemeToggle Hook *(Coming Soon)*
+- useThemeToggleWithSystem Hook *(Coming Soon)*
 - Box Component *(Coming Soon)*
 - Typography Component *(Coming Soon)*
 - Button Component *(Coming Soon)*
 
 ## ⚡ Advanced Features
 - [SSR Support](SSR-Support)
-- Theme Validation *(Coming Soon)*
+- [Theme Validation](Theme-Validation)
+- System Theme Detection *(Coming Soon)*
+- Headless UI Patterns *(Coming Soon)*
 - Error Handling *(Coming Soon)*
 - Runtime Theme Editor *(Coming Soon)*
 - Responsive Design *(Coming Soon)*

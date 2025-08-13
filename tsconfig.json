@@ -13,7 +13,8 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": ["jest", "@testing-library/jest-dom", "node"]
   },
   "include": [
     "src/**/*"
@@ -22,6 +23,10 @@
     "node_modules",
     "dist",
     "**/*.test.ts",
-    "**/*.test.tsx"
+    "**/*.test.tsx",
+    "src/components/ThemeEditor.tsx",
+    "src/styled/Box.tsx",
+    "src/styled/Button.tsx",
+    "src/styled/Typography.tsx"
   ]
 }

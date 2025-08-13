@@ -2,7 +2,11 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: {
+        types: ['jest', '@testing-library/jest-dom', 'node']
+      }
+    }]
   },
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.(ts|tsx)',
@@ -12,6 +16,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/dist/',
-    '<rootDir>/src/__tests__/setup.ts'
+    '<rootDir>/src/__tests__/setup.ts',
+    '<rootDir>/src/__tests__/jest.d.ts'
   ]
 };

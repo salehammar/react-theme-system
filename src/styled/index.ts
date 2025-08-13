@@ -1,3 +1,2 @@
-export { Box } from './Box';
-export { Typography } from './Typography';
-export { Button } from './Button';
+// Styled components moved to examples/styled/
+// Box, Typography, and Button are now example components

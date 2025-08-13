@@ -39,12 +39,20 @@ export const useStyled = () => {
 
   const getColor = (color: keyof Theme['colors'], fallback?: string): string => {
     if (!isHydrated) return fallback || '#000000';
-    return theme.colors[color] || fallback || '#000000';
+    const colorValue = theme.colors[color];
+    if (typeof colorValue === 'string') {
+      return colorValue;
+    }
+    return fallback || '#000000';
   };
 
   const getSpacing = (spacing: keyof Theme['spacing'], fallback?: string): string => {
     if (!isHydrated) return fallback || '0';
-    return theme.spacing[spacing] || fallback || '0';
+    const spacingValue = theme.spacing[spacing];
+    if (typeof spacingValue === 'string') {
+      return spacingValue;
+    }
+    return fallback || '0';
   };
 
   const getTypography = (
@@ -67,7 +75,11 @@ export const useStyled = () => {
 
   const getTransition = (transition: keyof Theme['transitions'], fallback?: string): string => {
     if (!isHydrated) return fallback || 'none';
-    return theme.transitions[transition] || fallback || 'none';
+    const transitionValue = theme.transitions[transition];
+    if (typeof transitionValue === 'string') {
+      return transitionValue;
+    }
+    return fallback || 'none';
   };
 
   const getFontWeight = (weight: keyof Theme['typography']['fontWeight'], fallback?: number): number => {

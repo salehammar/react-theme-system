@@ -1,1 +1,1 @@
-export { ThemeEditor } from './ThemeEditor';
+// ThemeEditor moved to examples/components/ThemeEditor.tsx

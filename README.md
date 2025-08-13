@@ -5,13 +5,17 @@ A comprehensive React theme management system that enforces consistency, support
 ## ✨ Features
 
 - **🎨 Theme Management**: Light/dark mode with automatic persistence
-- **🔒 Type Safety**: Full TypeScript support with strict typing
+- **🔒 Type Safety**: Full TypeScript support with strict typing and schema validation
 - **⚡ SSR Ready**: Server-side rendering support with hydration safety
 - **🛡️ Error Handling**: Graceful fallbacks and error recovery
 - **📱 Responsive**: Built-in responsive design utilities
 - **🎯 Validation**: Theme validation and error prevention
 - **🧪 Tested**: Comprehensive test coverage
 - **📦 Zero Dependencies**: Lightweight and framework-agnostic
+- **🌐 System Theme Sync**: Automatic OS theme detection and sync
+- **🧩 Headless UI**: Decoupled logic hooks for maximum flexibility
+- **🔍 Schema Validation**: Comprehensive theme structure validation
+- **🎨 Enhanced CSS Variables**: System theme support with fallbacks
 
 ## 🚀 Quick Start
 
@@ -41,7 +45,7 @@ function MyApp() {
   return (
     <div style={{ 
       backgroundColor: theme.colors.background,
-      color: theme.colors.text 
+      color: theme.colors.text.primary 
     }}>
       <h1>Hello, themed world!</h1>
       <button onClick={toggleTheme}>
@@ -57,13 +61,18 @@ function MyApp() {
 ### Custom Theme Configuration
 
 ```tsx
-import { createThemeConfig } from 'react-theme-system';
+import { createThemeConfig, themeValidator } from 'react-theme-system';
 
 const customTheme = createThemeConfig({
   light: {
     colors: {
       primary: '#007bff',
       background: '#ffffff',
+      text: {
+        primary: '#212529',
+        secondary: '#6c757d',
+        disabled: '#adb5bd'
+      },
       // ... other colors
     }
   },
@@ -71,12 +80,23 @@ const customTheme = createThemeConfig({
     colors: {
       primary: '#0056b3',
       background: '#121212',
+      text: {
+        primary: '#f8fafc',
+        secondary: '#cbd5e1',
+        disabled: '#64748b'
+      },
       // ... other colors
     }
   }
 });
 
-<ThemeProvider themes={customTheme}>
+// Validate your theme
+const validation = themeValidator.validate(customTheme);
+if (!validation.isValid) {
+  console.error('Theme validation failed:', validation.errors);
+}
+
+<ThemeProvider themes={customTheme} validateTheme={true}>
   <App />
 </ThemeProvider>
 ```
@@ -93,9 +113,56 @@ function MyApp({ Component, pageProps }) {
       themes={defaultTheme}
       defaultTheme="light"
       enablePersistence={true}
+      enableSystemTheme={true}
+      validateTheme={true}
     >
       <Component {...pageProps} />
     </ThemeProvider>
+  );
+}
+```
+
+### Headless Theme Toggle Hooks
+
+```tsx
+import { useThemeToggle, useThemeToggleWithSystem } from 'react-theme-system';
+
+// Basic theme toggle
+function ThemeToggle() {
+  const { isDark, toggle, icon, label } = useThemeToggle();
+  
+  return (
+    <button onClick={toggle} aria-label={label}>
+      {icon}
+    </button>
+  );
+}
+
+// Advanced theme toggle with system theme detection
+function AdvancedThemeToggle() {
+  const { 
+    isDark, 
+    toggle, 
+    systemTheme, 
+    setSystem, 
+    cycleTheme,
+    hasSystemTheme 
+  } = useThemeToggleWithSystem();
+  
+  return (
+    <div>
+      <button onClick={toggle}>
+        {isDark ? '🌙' : '☀️'}
+      </button>
+      {hasSystemTheme && (
+        <button onClick={setSystem}>
+          Use System ({systemTheme})
+        </button>
+      )}
+      <button onClick={cycleTheme}>
+        Cycle Themes
+      </button>
+    </div>
   );
 }
 ```
@@ -115,6 +182,32 @@ function MyApp({ Component, pageProps }) {
 >
   <App />
 </ThemeProvider>
+```
+
+### Enhanced Theme Utilities
+
+```tsx
+import { useTheme } from 'react-theme-system';
+
+function ThemeUtilities() {
+  const { getToken, getCSSVariable } = useTheme();
+  
+  return (
+    <div>
+      {/* Get token values with fallbacks */}
+      <p>Primary: {getToken('colors.primary', '#007bff')}</p>
+      <p>Spacing: {getToken('spacing.md', '1rem')}</p>
+      
+      {/* Generate CSS variables */}
+      <div style={{
+        backgroundColor: getCSSVariable('colors.primary', '#007bff'),
+        padding: getCSSVariable('spacing.md', '1rem')
+      }}>
+        Using CSS variables with fallbacks
+      </div>
+    </div>
+  );
+}
 ```
 
 ### Styled Components with Fallbacks
@@ -164,23 +257,26 @@ function CSSVarComponent() {
 }
 ```
 
-## 🎨 Theme Structure
+## 🎨 Enhanced Theme Structure
 
 ```typescript
 interface Theme {
   colors: {
     primary: string;
     secondary: string;
-    success: string;
-    warning: string;
-    error: string;
-    info: string;
+    accent: string;
     background: string;
     surface: string;
-    text: string;
-    textSecondary: string;
+    text: {
+      primary: string;
+      secondary: string;
+      disabled: string;
+    };
     border: string;
-    divider: string;
+    error: string;
+    warning: string;
+    success: string;
+    info: string;
   };
   spacing: {
     xs: string;
@@ -189,6 +285,7 @@ interface Theme {
     lg: string;
     xl: string;
     xxl: string;
+    scale: (multiplier: number) => string; // Dynamic spacing
   };
   typography: {
     fontFamily: {
@@ -204,6 +301,7 @@ interface Theme {
       xl: string;
       '2xl': string;
       '3xl': string;
+      '4xl': string;
     };
     fontWeight: {
       light: number;
@@ -212,12 +310,20 @@ interface Theme {
       semibold: number;
       bold: number;
     };
+    lineHeight: {
+      tight: string;
+      normal: string;
+      relaxed: string;
+    };
   };
   shadows: {
     sm: string;
     md: string;
     lg: string;
     xl: string;
+    '2xl': string;
+    inner: string;
+    none: string;
   };
   borderRadius: {
     none: string;
@@ -238,13 +344,25 @@ interface Theme {
     fast: string;
     normal: string;
     slow: string;
+    ease: {
+      in: string;
+      out: string;
+      inOut: string;
+    };
   };
   zIndex: {
+    hide: number;
+    auto: number;
+    base: number;
+    docked: number;
     dropdown: number;
     sticky: number;
-    fixed: number;
+    banner: number;
+    overlay: number;
     modal: number;
     popover: number;
+    skipLink: number;
+    toast: number;
     tooltip: number;
   };
 }
@@ -256,11 +374,13 @@ interface Theme {
 
 ```typescript
 interface ThemeProviderProps {
-  themes: ThemeConfig;
+  themes?: ThemeConfig;
   children: React.ReactNode;
   defaultTheme?: 'light' | 'dark';
   onChange?: (theme: 'light' | 'dark') => void;
   enablePersistence?: boolean;
+  enableSystemTheme?: boolean; // New: Enable OS theme detection
+  validateTheme?: boolean;     // New: Enable theme validation
 }
 ```
 
@@ -289,6 +409,19 @@ applyThemeToDOM(theme); // Apply theme directly to document
 import { VALID_THEMES, type ValidTheme } from 'react-theme-system';
 // VALID_THEMES = ['light', 'dark']
 // ValidTheme = 'light' | 'dark'
+
+// Theme validation with detailed feedback
+import { themeValidator, createThemeValidator } from 'react-theme-system';
+
+const validation = themeValidator.validate(themeConfig);
+if (!validation.isValid) {
+  console.error('Theme errors:', validation.errors);
+  console.warn('Theme warnings:', validation.warnings);
+}
+
+// Strict validation
+const strictValidator = createThemeValidator(true);
+const strictValidation = strictValidator.validate(themeConfig);
 ```
 
 ### useTheme Hook
@@ -299,10 +432,13 @@ const {
   isDarkMode,      // Boolean indicating dark mode
   currentTheme,    // Current theme name ('light' | 'dark')
   isHydrated,      // Boolean indicating hydration status
+  systemTheme,     // Current system theme ('light' | 'dark' | null)
   setTheme,        // Function to set theme directly
   toggleTheme,     // Function to toggle between themes
   updateTheme,     // Function to update specific theme values
-  resetCustomTheme // Function to reset custom theme overrides
+  resetCustomTheme, // Function to reset custom theme overrides
+  getToken,        // Get theme token with fallback
+  getCSSVariable   // Generate CSS variable with fallback
 } = useTheme();
 ```
 
@@ -404,6 +540,59 @@ const { colorVar } = useStyled();
 ```
 
 ## 🔄 Migration Guide
+
+### From v1.0.3 to v1.1.0
+
+1. **Enhanced Theme Structure**: Updated theme interface
+   ```tsx
+   // New nested text structure
+   colors: {
+     text: {
+       primary: string;
+       secondary: string;
+       disabled: string;
+     }
+   }
+   
+   // New spacing scale function
+   spacing: {
+     scale: (multiplier: number) => string;
+   }
+   ```
+
+2. **New Headless Hooks**: Added theme toggle hooks
+   ```tsx
+   import { useThemeToggle, useThemeToggleWithSystem } from 'react-theme-system';
+   
+   const { isDark, toggle, icon, label } = useThemeToggle();
+   const { systemTheme, setSystem, cycleTheme } = useThemeToggleWithSystem();
+   ```
+
+3. **Theme Validation**: Added comprehensive validation
+   ```tsx
+   import { themeValidator } from 'react-theme-system';
+   
+   const validation = themeValidator.validate(themeConfig);
+   if (!validation.isValid) {
+     console.error(validation.errors);
+   }
+   ```
+
+4. **System Theme Detection**: New provider props
+   ```tsx
+   <ThemeProvider 
+     enableSystemTheme={true}
+     validateTheme={true}
+   >
+   ```
+
+5. **Enhanced Utilities**: New theme utilities
+   ```tsx
+   const { getToken, getCSSVariable } = useTheme();
+   
+   const color = getToken('colors.primary', '#fallback');
+   const cssVar = getCSSVariable('colors.primary', '#fallback');
+   ```
 
 ### From v1.0.2 to v1.0.3
 

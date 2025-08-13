@@ -1,29 +1,39 @@
 // Core Theme System
-export { ThemeProvider, useTheme, VALID_THEMES, type ValidTheme } from './ThemeProvider';
+export { ThemeProvider, useTheme, VALID_THEMES } from './ThemeProvider';
+export type { ValidTheme } from './types';
 export { useStyled } from './hooks';
+export { useThemeToggle, useThemeToggleWithSystem } from './hooks/useThemeToggle';
 export { defaultTheme } from './themes';
 
 // Theme Utilities
-export { 
-  createThemeConfig, 
-  isValidTheme, 
-  getStoredTheme, 
+export {
+  createThemeConfig,
+  isValidTheme,
+  getStoredTheme,
   setStoredTheme,
   themeToCSSVariables,
   applyThemeToDOM
 } from './utils/theme-helpers';
 
-// Styled Components
-export { Box, Typography, Button } from './styled';
+// Theme Validation
+export {
+  themeValidator,
+  createThemeValidator,
+  validateTheme,
+  validateThemeConfig,
+  type ThemeValidationResult
+} from './utils/theme-schema';
 
-// Theme Editor
-export { ThemeEditor } from './components';
+// Styled Components
+// Styled components moved to examples/styled/
+// Components moved to examples/components/
 
 // Types
 export type {
   Theme,
   ThemeConfig,
   ThemeContextType,
+  ThemeProviderProps,
   StyledProps,
   StyledStyles,
   ThemeTokenPath,

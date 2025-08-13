@@ -27,6 +27,9 @@ cd my-themed-app
 
 # Install React Theme System
 npm install react-theme-system
+
+# Optional: Install CLI tools for development
+npm install -g react-theme-system
 ```
 
 ## 🎨 Step 2: Set Up Theme Provider
@@ -44,6 +47,8 @@ function App() {
       themes={defaultTheme}
       defaultTheme="light"
       enablePersistence={true}
+      enableSystemTheme={true}
+      validateTheme={true}
       onChange={(theme) => {
         console.log('Theme changed to:', theme);
       }}
@@ -77,7 +82,88 @@ export default App;
 
 ## 🌙 Step 3: Add Theme Toggle
 
-Create a new component `src/components/ThemeToggle.tsx`:
+### Option A: Using Headless Hooks (Recommended)
+
+Create a new component `src/components/ThemeToggle.tsx` using the new headless hooks:
+
+```tsx
+import React from 'react';
+import { useThemeToggle, useThemeToggleWithSystem, Button, Box } from 'react-theme-system';
+
+// Basic theme toggle with headless hook
+export function ThemeToggle() {
+  const { isDark, toggle, icon, label, isHydrated } = useThemeToggle();
+
+  // Handle SSR safely
+  if (!isHydrated) {
+    return (
+      <Box 
+        position="fixed" 
+        top="md" 
+        right="md" 
+        zIndex="modal"
+      >
+        <Button variant="secondary" disabled>
+          Loading...
+        </Button>
+      </Box>
+    );
+  }
+
+  return (
+    <Box 
+      position="fixed" 
+      top="md" 
+      right="md" 
+      zIndex="modal"
+    >
+      <Button 
+        variant={isDark ? "primary" : "secondary"}
+        onClick={toggle}
+        aria-label={label}
+      >
+        {icon} {isDark ? 'Light Mode' : 'Dark Mode'}
+      </Button>
+    </Box>
+  );
+}
+
+// Advanced theme toggle with system theme detection
+export function AdvancedThemeToggle() {
+  const { 
+    isDark, 
+    toggle, 
+    systemTheme, 
+    setSystem, 
+    cycleTheme,
+    hasSystemTheme 
+  } = useThemeToggleWithSystem();
+
+  return (
+    <Box 
+      position="fixed" 
+      top="md" 
+      right="md" 
+      zIndex="modal"
+      style={{ display: 'flex', gap: '0.5rem' }}
+    >
+      <Button onClick={toggle}>
+        {isDark ? '🌙' : '☀️'}
+      </Button>
+      {hasSystemTheme && (
+        <Button onClick={setSystem} variant="outline">
+          System ({systemTheme})
+        </Button>
+      )}
+      <Button onClick={cycleTheme} variant="ghost">
+        Cycle
+      </Button>
+    </Box>
+  );
+}
+```
+
+### Option B: Using Traditional useTheme Hook
 
 ```tsx
 import React from 'react';
@@ -181,6 +267,24 @@ export function Card({ title, description, actionText, onAction }: CardProps) {
       )}
     </Box>
   );
+}
+```
+
+## 🔍 Step 4: Theme Validation (Optional)
+
+Add theme validation to catch issues early:
+
+```tsx
+import { themeValidator } from 'react-theme-system';
+
+// Validate your theme configuration
+const validation = themeValidator.validate(defaultTheme);
+
+if (!validation.isValid) {
+  console.error('Theme validation failed:', validation.errors);
+  console.warn('Theme warnings:', validation.warnings);
+} else {
+  console.log('✅ Theme is valid!');
 }
 ```
 

@@ -10,16 +10,19 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
       colors: {
         primary: '#4361ee',
         secondary: '#3f37c9',
-        success: '#4caf50',
-        warning: '#ff9800',
-        error: '#f44336',
-        info: '#2196f3',
+        accent: '#4895ef',
         background: '#ffffff',
         surface: '#f8f9fa',
-        text: '#212529',
-        textSecondary: '#6c757d',
+        text: {
+          primary: '#212529',
+          secondary: '#6c757d',
+          disabled: '#adb5bd'
+        },
         border: '#dee2e6',
-        divider: '#e9ecef'
+        error: '#dc3545',
+        warning: '#ffc107',
+        success: '#28a745',
+        info: '#17a2b8'
       },
       spacing: {
         xs: '0.25rem',
@@ -27,13 +30,14 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
         md: '1rem',
         lg: '1.5rem',
         xl: '3rem',
-        xxl: '6rem'
+        xxl: '4rem',
+        scale: (multiplier: number) => `${multiplier * 0.25}rem`
       },
       typography: {
         fontFamily: {
-          primary: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          primary: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
           secondary: 'Georgia, "Times New Roman", serif',
-          mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace'
+          mono: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace'
         },
         fontSize: {
           xs: '0.75rem',
@@ -42,7 +46,8 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
           lg: '1.125rem',
           xl: '1.25rem',
           '2xl': '1.5rem',
-          '3xl': '1.875rem'
+          '3xl': '1.875rem',
+          '4xl': '2.25rem'
         },
         fontWeight: {
           light: 300,
@@ -61,7 +66,10 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
         sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
         md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+        xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+        none: 'none'
       },
       borderRadius: {
         none: '0',
@@ -80,32 +88,47 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
       },
       transitions: {
         fast: '150ms ease-in-out',
-        normal: '250ms ease-in-out',
-        slow: '350ms ease-in-out'
+        normal: '300ms ease-in-out',
+        slow: '500ms ease-in-out',
+        ease: {
+          in: 'ease-in',
+          out: 'ease-out',
+          inOut: 'ease-in-out'
+        }
       },
       zIndex: {
+        hide: -1,
+        auto: 0,
+        base: 0,
+        docked: 10,
         dropdown: 1000,
-        sticky: 1020,
-        fixed: 1030,
-        modal: 1040,
-        popover: 1050,
-        tooltip: 1060
+        sticky: 1100,
+        banner: 1200,
+        overlay: 1300,
+        modal: 1400,
+        popover: 1500,
+        skipLink: 1600,
+        toast: 1700,
+        tooltip: 1800
       }
     },
     dark: {
       colors: {
         primary: '#60a5fa',
         secondary: '#818cf8',
-        success: '#34d399',
-        warning: '#fbbf24',
-        error: '#f87171',
-        info: '#60a5fa',
+        accent: '#34d399',
         background: '#0f172a',
         surface: '#1e293b',
-        text: '#f8fafc',
-        textSecondary: '#cbd5e1',
+        text: {
+          primary: '#f8fafc',
+          secondary: '#cbd5e1',
+          disabled: '#64748b'
+        },
         border: '#334155',
-        divider: '#475569'
+        error: '#f87171',
+        warning: '#fbbf24',
+        success: '#4ade80',
+        info: '#60a5fa'
       },
       spacing: {
         xs: '0.25rem',
@@ -113,13 +136,14 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
         md: '1rem',
         lg: '1.5rem',
         xl: '3rem',
-        xxl: '6rem'
+        xxl: '4rem',
+        scale: (multiplier: number) => `${multiplier * 0.25}rem`
       },
       typography: {
         fontFamily: {
-          primary: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+          primary: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
           secondary: 'Georgia, "Times New Roman", serif',
-          mono: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace'
+          mono: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace'
         },
         fontSize: {
           xs: '0.75rem',
@@ -128,7 +152,8 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
           lg: '1.125rem',
           xl: '1.25rem',
           '2xl': '1.5rem',
-          '3xl': '1.875rem'
+          '3xl': '1.875rem',
+          '4xl': '2.25rem'
         },
         fontWeight: {
           light: 300,
@@ -147,7 +172,10 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
         sm: '0 1px 2px 0 rgba(0, 0, 0, 0.3)',
         md: '0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
         lg: '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3)',
-        xl: '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3)'
+        xl: '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3)',
+        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+        inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.3)',
+        none: 'none'
       },
       borderRadius: {
         none: '0',
@@ -166,16 +194,28 @@ export const createThemeConfig = (config: Partial<ThemeConfig>): ThemeConfig => 
       },
       transitions: {
         fast: '150ms ease-in-out',
-        normal: '250ms ease-in-out',
-        slow: '350ms ease-in-out'
+        normal: '300ms ease-in-out',
+        slow: '500ms ease-in-out',
+        ease: {
+          in: 'ease-in',
+          out: 'ease-out',
+          inOut: 'ease-in-out'
+        }
       },
       zIndex: {
+        hide: -1,
+        auto: 0,
+        base: 0,
+        docked: 10,
         dropdown: 1000,
-        sticky: 1020,
-        fixed: 1030,
-        modal: 1040,
-        popover: 1050,
-        tooltip: 1060
+        sticky: 1100,
+        banner: 1200,
+        overlay: 1300,
+        modal: 1400,
+        popover: 1500,
+        skipLink: 1600,
+        toast: 1700,
+        tooltip: 1800
       }
     }
   };
