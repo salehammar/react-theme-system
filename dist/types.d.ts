@@ -1,4 +1,6 @@
 import React from 'react';
+export declare const VALID_THEMES: readonly ["light", "dark"];
+export type ValidTheme = typeof VALID_THEMES[number];
 export interface ThemeColors {
     primary: string;
     secondary: string;
@@ -96,8 +98,12 @@ export interface Theme {
 export interface ThemeContextType {
     theme: Theme;
     isDarkMode: boolean;
+    currentTheme: ValidTheme | undefined;
+    isHydrated: boolean;
+    setTheme: (_theme: ValidTheme) => void;
     toggleTheme: () => void;
     updateTheme: (_path: string, _value?: any) => void;
+    resetCustomTheme: () => void;
 }
 export interface StyledProps {
     bg?: keyof ThemeColors;

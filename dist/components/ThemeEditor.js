@@ -6,22 +6,22 @@ const react_1 = require("react");
 const ThemeProvider_1 = require("../ThemeProvider");
 const useStyled_1 = require("../hooks/useStyled");
 const styled_1 = require("../styled");
-const ColorPicker = ({ label, color: colorValue, onChange }) => ((0, jsx_runtime_1.jsxs)(styled_1.Box, { p: "sm", style: { display: 'flex', alignItems: 'center', gap: '8px' }, children: [(0, jsx_runtime_1.jsx)(styled_1.Typography, { variant: "caption", style: { minWidth: '80px' }, children: label }), (0, jsx_runtime_1.jsx)("input", { type: "color", value: colorValue, onChange: (e) => onChange(e.target.value), style: {
+const ColorPicker = ({ label, color, onChange }) => ((0, jsx_runtime_1.jsxs)(styled_1.Box, { p: "sm", style: { display: 'flex', alignItems: 'center', gap: '8px' }, children: [(0, jsx_runtime_1.jsx)(styled_1.Typography, { variant: "caption", style: { minWidth: '80px' }, children: label }), (0, jsx_runtime_1.jsx)("input", { type: "color", value: color, onChange: (e) => onChange(e.target.value), style: {
                 width: '40px',
                 height: '32px',
                 border: 'none',
                 borderRadius: '4px',
                 cursor: 'pointer'
-            } }), (0, jsx_runtime_1.jsx)("input", { type: "text", value: colorValue, onChange: (e) => onChange(e.target.value), style: {
+            } }), (0, jsx_runtime_1.jsx)("input", { type: "text", value: color, onChange: (e) => onChange(e.target.value), style: {
                 width: '80px',
                 padding: '4px 8px',
                 border: '1px solid #ccc',
                 borderRadius: '4px',
                 fontSize: '12px'
             } })] }));
-const SpacingSlider = ({ label, value: valueStr, onChange, min = 0, max = 100, step = 1 }) => {
-    const numericValue = parseInt(valueStr.replace('px', '').replace('rem', ''));
-    return ((0, jsx_runtime_1.jsxs)(styled_1.Box, { p: "sm", style: { display: 'flex', alignItems: 'center', gap: '8px' }, children: [(0, jsx_runtime_1.jsx)(styled_1.Typography, { variant: "caption", style: { minWidth: '80px' }, children: label }), (0, jsx_runtime_1.jsx)("input", { type: "range", min: min, max: max, step: step, value: numericValue, onChange: (e) => onChange(`${e.target.value}px`), style: { flex: 1 } }), (0, jsx_runtime_1.jsx)(styled_1.Typography, { variant: "caption", style: { minWidth: '40px' }, children: valueStr })] }));
+const SpacingSlider = ({ label, value, onChange, min = 0, max = 100, step = 1 }) => {
+    const numericValue = parseInt(value.replace('px', '').replace('rem', ''));
+    return ((0, jsx_runtime_1.jsxs)(styled_1.Box, { p: "sm", style: { display: 'flex', alignItems: 'center', gap: '8px' }, children: [(0, jsx_runtime_1.jsx)(styled_1.Typography, { variant: "caption", style: { minWidth: '80px' }, children: label }), (0, jsx_runtime_1.jsx)("input", { type: "range", min: min, max: max, step: step, value: numericValue, onChange: (e) => onChange(`${e.target.value}px`), style: { flex: 1 } }), (0, jsx_runtime_1.jsx)(styled_1.Typography, { variant: "caption", style: { minWidth: '40px' }, children: value })] }));
 };
 const ThemeEditor = () => {
     const { theme, updateTheme, toggleTheme, isDarkMode } = (0, ThemeProvider_1.useTheme)();

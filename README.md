@@ -1,18 +1,17 @@
 # React Theme System
 
-A comprehensive React theme management system that enforces consistency, supports dark/light mode, and eliminates hardcoded styles. Built with TypeScript for full type safety and developer experience.
+A comprehensive React theme management system that enforces consistency, supports dark/light mode, and eliminates hardcoded styles. Built with TypeScript, SSR support, and production-ready features.
 
 ## ✨ Features
 
-- **🎨 Theme Management**: Centralized theme configuration with light/dark mode support
-- **🔒 Type Safety**: Full TypeScript support with autocomplete and validation
-- **🚫 No Hardcoded Styles**: Enforced theme token usage through components and hooks
-- **🌙 Dark Mode**: Built-in dark/light mode switching with smooth transitions
-- **📱 Responsive**: Responsive design utilities with breakpoint support
-- **🎛️ Runtime Editor**: Visual theme editor for designers and developers
-- **🛠️ CLI Tools**: Scaffolding tools for quick theme setup
-- **🔍 Linting**: ESLint rules to enforce theme compliance
-- **🤖 AI-Friendly**: Clear patterns for AI-generated code
+- **🎨 Theme Management**: Light/dark mode with automatic persistence
+- **🔒 Type Safety**: Full TypeScript support with strict typing
+- **⚡ SSR Ready**: Server-side rendering support with hydration safety
+- **🛡️ Error Handling**: Graceful fallbacks and error recovery
+- **📱 Responsive**: Built-in responsive design utilities
+- **🎯 Validation**: Theme validation and error prevention
+- **🧪 Tested**: Comprehensive test coverage
+- **📦 Zero Dependencies**: Lightweight and framework-agnostic
 
 ## 🚀 Quick Start
 
@@ -26,494 +25,414 @@ npm install react-theme-system
 
 ```tsx
 import React from 'react';
-import { ThemeProvider, Box, Typography, Button, useTheme, defaultTheme } from 'react-theme-system';
+import { ThemeProvider, useTheme, defaultTheme } from 'react-theme-system';
 
-const App = () => (
-  <ThemeProvider themes={defaultTheme}>
-    <Dashboard />
-  </ThemeProvider>
-);
+function App() {
+  return (
+    <ThemeProvider themes={defaultTheme}>
+      <MyApp />
+    </ThemeProvider>
+  );
+}
 
-const Dashboard = () => {
-  const { theme, toggleTheme, isDarkMode } = useTheme();
+function MyApp() {
+  const { theme, isDarkMode, toggleTheme } = useTheme();
   
   return (
-    <Box bg="background" p="lg">
-      <Typography as="h1" variant="h2" color="primary" p="md">
-        Welcome to React Theme System
-      </Typography>
-      
-      <Box bg="surface" p="md" borderRadius="md" shadow="md" m="md">
-        <Typography color="textSecondary" p="sm">
-          This component uses theme tokens for consistent styling
-        </Typography>
-        
-        <Box style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-          <Button onClick={toggleTheme} variant="primary">
-            Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
-          </Button>
-          <Button variant="outline">Secondary Action</Button>
-        </Box>
-      </Box>
-    </Box>
+    <div style={{ 
+      backgroundColor: theme.colors.background,
+      color: theme.colors.text 
+    }}>
+      <h1>Hello, themed world!</h1>
+      <button onClick={toggleTheme}>
+        Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
+      </button>
+    </div>
   );
-};
-
-export default App;
+}
 ```
 
-## 🎨 Theme Configuration
+## 📚 Advanced Usage
 
-### Using Default Theme
-
-```tsx
-import { ThemeProvider, defaultTheme } from 'react-theme-system';
-
-<ThemeProvider themes={defaultTheme}>
-  {children}
-</ThemeProvider>
-```
-
-### Custom Theme
+### Custom Theme Configuration
 
 ```tsx
-import { ThemeProvider } from 'react-theme-system';
+import { createThemeConfig } from 'react-theme-system';
 
-const customTheme = {
+const customTheme = createThemeConfig({
   light: {
     colors: {
-      primary: '#your-primary-color',
-      background: '#your-background',
-      // ... other tokens
-    },
-    // ... other theme sections
+      primary: '#007bff',
+      background: '#ffffff',
+      // ... other colors
+    }
   },
   dark: {
-    // ... dark mode tokens
+    colors: {
+      primary: '#0056b3',
+      background: '#121212',
+      // ... other colors
+    }
   }
-};
+});
 
 <ThemeProvider themes={customTheme}>
-  {children}
+  <App />
 </ThemeProvider>
 ```
 
-## 🧩 Components
-
-### Box Component
-
-The `Box` component provides layout and styling with theme tokens:
+### SSR Support (Next.js/Gatsby)
 
 ```tsx
-import { Box } from 'react-theme-system';
+// _app.tsx (Next.js)
+import { ThemeProvider, defaultTheme } from 'react-theme-system';
 
-<Box 
-  bg="surface" 
-  p="lg" 
-  m="md" 
-  borderRadius="md" 
-  shadow="lg"
+function MyApp({ Component, pageProps }) {
+  return (
+    <ThemeProvider 
+      themes={defaultTheme}
+      defaultTheme="light"
+      enablePersistence={true}
+    >
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+}
+```
+
+### Theme Change Callbacks
+
+```tsx
+<ThemeProvider 
+  themes={defaultTheme}
+  onChange={(theme) => {
+    // Analytics tracking
+    analytics.track('theme_changed', { theme });
+    
+    // Apply theme to document
+    document.documentElement.setAttribute('data-theme', theme);
+  }}
 >
-  Content goes here
-</Box>
+  <App />
+</ThemeProvider>
 ```
 
-**Props:**
-- `bg`: Background color token
-- `p`, `px`, `py`: Padding tokens
-- `m`, `mx`, `my`: Margin tokens
-- `borderRadius`: Border radius token
-- `shadow`: Shadow token
-- `fontSize`: Typography size token
-- `fontWeight`: Typography weight token
-
-### Typography Component
-
-Typography component with semantic variants:
+### Styled Components with Fallbacks
 
 ```tsx
-import { Typography } from 'react-theme-system';
+import { useStyled } from 'react-theme-system';
 
-<Typography as="h1" variant="h2" color="primary" p="md">
-  Heading Text
-</Typography>
+function StyledButton() {
+  const { styled, getColor, getSpacing } = useStyled();
+  
+  const buttonStyles = styled({
+    backgroundColor: 'colors.primary',
+    padding: 'spacing.md',
+    borderRadius: 'borderRadius.md',
+    boxShadow: 'shadows.sm'
+  }, {
+    // Fallbacks for SSR or missing tokens
+    backgroundColor: '#007bff',
+    padding: '1rem'
+  });
 
-<Typography variant="body" color="textSecondary">
-  Body text with secondary color
-</Typography>
+  return (
+    <button style={buttonStyles}>
+      Click me!
+    </button>
+  );
+}
 ```
 
-**Props:**
-- `as`: HTML element (`p`, `span`, `h1`, `h2`, etc.)
-- `variant`: Typography variant (`body`, `caption`, `overline`, `button`)
-- `color`: Color token
-- `fontSize`: Font size token
-- `fontWeight`: Font weight token
-- `align`: Text alignment
-- `truncate`: Truncate long text
-- `noWrap`: Prevent text wrapping
-
-### Button Component
-
-Theme-aware button with multiple variants:
+### CSS Variables with Fallbacks
 
 ```tsx
-import { Button } from 'react-theme-system';
+import { useStyled } from 'react-theme-system';
 
-<Button variant="primary" size="md" onClick={handleClick}>
-  Primary Button
-</Button>
-
-<Button variant="outline" size="lg" disabled>
-  Disabled Button
-</Button>
+function CSSVarComponent() {
+  const { colorVar, spacingVar, cssVar } = useStyled();
+  
+  return (
+    <div style={{
+      backgroundColor: colorVar('primary', '#007bff'),
+      padding: spacingVar('md', '1rem'),
+      fontSize: cssVar('font-size-lg', '1.125rem')
+    }}>
+      Using CSS variables with fallbacks
+    </div>
+  );
+}
 ```
 
-**Props:**
-- `variant`: Button style (`primary`, `secondary`, `outline`, `ghost`, `danger`)
-- `size`: Button size (`sm`, `md`, `lg`)
-- `disabled`: Disable button
-- `loading`: Show loading state
-- `fullWidth`: Full width button
-- `onClick`: Click handler
+## 🎨 Theme Structure
 
-## 🪝 Hooks
+```typescript
+interface Theme {
+  colors: {
+    primary: string;
+    secondary: string;
+    success: string;
+    warning: string;
+    error: string;
+    info: string;
+    background: string;
+    surface: string;
+    text: string;
+    textSecondary: string;
+    border: string;
+    divider: string;
+  };
+  spacing: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    xxl: string;
+  };
+  typography: {
+    fontFamily: {
+      primary: string;
+      secondary: string;
+      mono: string;
+    };
+    fontSize: {
+      xs: string;
+      sm: string;
+      base: string;
+      lg: string;
+      xl: string;
+      '2xl': string;
+      '3xl': string;
+    };
+    fontWeight: {
+      light: number;
+      normal: number;
+      medium: number;
+      semibold: number;
+      bold: number;
+    };
+  };
+  shadows: {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
+  borderRadius: {
+    none: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    full: string;
+  };
+  breakpoints: {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    '2xl': string;
+  };
+  transitions: {
+    fast: string;
+    normal: string;
+    slow: string;
+  };
+  zIndex: {
+    dropdown: number;
+    sticky: number;
+    fixed: number;
+    modal: number;
+    popover: number;
+    tooltip: number;
+  };
+}
+```
+
+## 🔧 API Reference
+
+### ThemeProvider Props
+
+```typescript
+interface ThemeProviderProps {
+  themes: ThemeConfig;
+  children: React.ReactNode;
+  defaultTheme?: 'light' | 'dark';
+  onChange?: (theme: 'light' | 'dark') => void;
+  enablePersistence?: boolean;
+}
+```
+
+### Theme Utilities
+
+```typescript
+// Theme configuration helper
+const themeConfig = createThemeConfig({
+  light: { /* your light theme */ },
+  dark: { /* your dark theme */ }
+});
+
+// Theme validation
+const isValid = isValidTheme('light'); // true
+const isValid = isValidTheme('invalid'); // false
+
+// Theme storage utilities
+const storedTheme = getStoredTheme(); // Get theme from localStorage
+setStoredTheme('dark'); // Save theme to localStorage
+
+// CSS variable generation
+const cssVars = themeToCSSVariables(theme); // Convert theme to CSS variables
+applyThemeToDOM(theme); // Apply theme directly to document
+
+// Valid theme constants
+import { VALID_THEMES, type ValidTheme } from 'react-theme-system';
+// VALID_THEMES = ['light', 'dark']
+// ValidTheme = 'light' | 'dark'
+```
 
 ### useTheme Hook
 
-Access theme context and controls:
-
-```tsx
-import { useTheme } from 'react-theme-system';
-
-const { theme, isDarkMode, toggleTheme, updateTheme } = useTheme();
-
-// Access theme values
-const primaryColor = theme.colors.primary;
-const spacing = theme.spacing.md;
-
-// Toggle theme
-toggleTheme();
-
-// Update specific theme values
-updateTheme('colors.primary', '#new-color');
+```typescript
+const {
+  theme,           // Current theme object
+  isDarkMode,      // Boolean indicating dark mode
+  currentTheme,    // Current theme name ('light' | 'dark')
+  isHydrated,      // Boolean indicating hydration status
+  setTheme,        // Function to set theme directly
+  toggleTheme,     // Function to toggle between themes
+  updateTheme,     // Function to update specific theme values
+  resetCustomTheme // Function to reset custom theme overrides
+} = useTheme();
 ```
 
 ### useStyled Hook
 
-Advanced styling utilities:
-
-```tsx
-import { useStyled } from 'react-theme-system';
-
-const { 
-  styled, 
-  getColor, 
-  getSpacing, 
-  responsive 
+```typescript
+const {
+  styled,          // Function to create styled objects
+  getColor,        // Get color with fallback
+  getSpacing,      // Get spacing with fallback
+  getTypography,   // Get typography with fallback
+  getShadow,       // Get shadow with fallback
+  getBorderRadius, // Get border radius with fallback
+  getTransition,   // Get transition with fallback
+  getFontWeight,   // Get font weight with fallback
+  getFontFamily,   // Get font family with fallback
+  responsive,      // Create responsive styles
+  cssVar,          // Generate CSS variable with fallback
+  colorVar,        // Generate color CSS variable
+  spacingVar,      // Generate spacing CSS variable
+  fontSizeVar,     // Generate font size CSS variable
+  shadowVar,       // Generate shadow CSS variable
+  radiusVar,       // Generate radius CSS variable
+  theme,           // Current theme object
+  isHydrated       // Hydration status
 } = useStyled();
-
-// Create styled object
-const styles = styled({
-  backgroundColor: 'colors.primary',
-  padding: 'spacing.lg',
-  color: 'colors.text'
-});
-
-// Direct token access
-const primaryColor = getColor('primary');
-const largeSpacing = getSpacing('lg');
-
-// Responsive styles
-const responsiveStyles = responsive('md', {
-  padding: 'spacing.xl',
-  fontSize: 'typography.fontSize.lg'
-});
 ```
 
-## 🎛️ Theme Editor
-
-The `ThemeEditor` component provides a visual interface for theme customization:
-
-```tsx
-import { ThemeEditor } from 'react-theme-system';
-
-const App = () => (
-  <ThemeProvider themes={defaultTheme}>
-    <ThemeEditor />
-  </ThemeProvider>
-);
-```
-
-Features:
-- Color picker for all color tokens
-- Spacing sliders for spacing scale
-- Typography controls
-- Real-time preview
-- Theme export/import
-- Reset functionality
-
-## 🛠️ CLI Tools
-
-### Theme Scaffolding
-
-Create a new theme project:
+## 🧪 Testing
 
 ```bash
-npx react-theme-system create-theme
-```
-
-This creates:
-- `theme.config.js` - Theme configuration
-- `MyComponent.tsx` - Example component
-- `App.example.tsx` - Usage example
-- `.eslintrc.json` - Theme enforcement rules
-
-### Type Generation
-
-Types are automatically generated on install, or manually:
-
-```bash
-npx react-theme-system generate-types
-```
-
-## 🔍 Linting & Enforcement
-
-### ESLint Rules
-
-The package includes ESLint rules to enforce theme compliance:
-
-```json
-{
-  "rules": {
-    "no-hardcoded-colors": "error",
-    "no-hardcoded-spacing": "error",
-    "prefer-theme-tokens": "warn"
-  }
-}
-```
-
-### VS Code Integration
-
-Install the VS Code extension for:
-- Hardcoded value detection
-- Theme token autocomplete
-- Color previews in gutter
-- Token validation
-
-## 🤖 AI Development Support
-
-### Prompt Engineering
-
-Teach AI to generate theme-compatible code:
-
-```
-"Always use theme tokens from theme.config.js. 
-Use <Box> component for layout. 
-Access colors via theme.colors.[token], 
-spacing via theme.spacing.[size]. 
-Never use hardcoded values."
-```
-
-### Code Patterns
-
-AI-friendly patterns for consistent styling:
-
-```tsx
-// ✅ Good - Using theme tokens
-<Box bg="surface" p="md" borderRadius="md">
-  <Typography color="text" fontSize="base">
-    Content
-  </Typography>
-</Box>
-
-// ❌ Bad - Hardcoded values
-<div style={{ backgroundColor: '#f8f9fa', padding: '16px' }}>
-  <p style={{ color: '#212529', fontSize: '16px' }}>
-    Content
-  </p>
-</div>
-```
-
-## 📱 Responsive Design
-
-### Breakpoint Utilities
-
-```tsx
-import { useStyled } from 'react-theme-system';
-
-const { responsive } = useStyled();
-
-const styles = {
-  padding: 'spacing.md',
-  ...responsive('lg', {
-    padding: 'spacing.lg',
-    fontSize: 'typography.fontSize.lg'
-  })
-};
-```
-
-### Media Query Support
-
-```tsx
-const { theme } = useTheme();
-
-const mediaQuery = `@media (min-width: ${theme.breakpoints.md}) {
-  .responsive-element {
-    padding: ${theme.spacing.lg};
-  }
-}`;
-```
-
-## 🎨 Advanced Theming
-
-### Component Variants
-
-```tsx
-// theme.config.js
-module.exports = {
-  button: {
-    primary: {
-      backgroundColor: 'colors.primary',
-      color: 'colors.white',
-      padding: 'spacing.md'
-    },
-    secondary: {
-      backgroundColor: 'colors.secondary',
-      color: 'colors.white',
-      padding: 'spacing.md'
-    }
-  }
-};
-
-// Usage
-const buttonStyles = theme.button.primary;
-```
-
-### Dynamic Theme Updates
-
-```tsx
-const { updateTheme } = useTheme();
-
-// Update specific values
-updateTheme('colors.primary', '#new-color');
-updateTheme('spacing.md', '1.5rem');
-
-// Batch updates
-['sm', 'md', 'lg'].forEach(size => {
-  updateTheme(`spacing.${size}`, `${parseInt(size) * 0.5}rem`);
-});
-```
-
-## 📦 Package Structure
-
-```
-react-theme-system/
-├── src/
-│   ├── ThemeProvider.tsx      # Main theme context
-│   ├── hooks/
-│   │   └── useStyled.ts       # Styling utilities
-│   ├── styled/
-│   │   ├── Box.tsx            # Layout component
-│   │   ├── Typography.tsx     # Typography component
-│   │   └── Button.tsx         # Button component
-│   ├── components/
-│   │   └── ThemeEditor.tsx    # Visual theme editor
-│   ├── themes/
-│   │   └── default.ts         # Default theme
-│   └── types.ts               # TypeScript definitions
-├── bin/
-│   ├── create-theme.js        # CLI scaffolding tool
-│   └── generate-types.js      # Type generation
-├── theme.config.js            # Template theme config
-└── package.json
-```
-
-## 🔧 Development
-
-### Building
-
-```bash
-npm run build
-```
-
-### Development Mode
-
-```bash
-npm run dev
-```
-
-### Testing
-
-```bash
+# Run tests
 npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
 ```
 
-### Linting
+## 📦 Build
 
 ```bash
+# Build the library
+npm run build
+
+# Type checking
+npm run type-check
+
+# Linting
 npm run lint
 ```
 
-## 📚 Examples
+## 🎯 Best Practices
 
-### Dashboard Layout
-
-```tsx
-const Dashboard = () => {
-  const { theme, toggleTheme } = useTheme();
-  
-  return (
-    <Box bg="background" minHeight="100vh">
-      {/* Header */}
-      <Box bg="surface" p="lg" shadow="sm" borderBottom="1px solid" style={{ borderColor: theme.colors.border }}>
-        <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography as="h1" variant="h2" color="primary">Dashboard</Typography>
-          <Button onClick={toggleTheme} variant="outline">
-            {theme.isDarkMode ? '☀️' : '🌙'}
-          </Button>
-        </Box>
-      </Box>
-      
-      {/* Content */}
-      <Box p="lg">
-        <Box bg="surface" p="lg" borderRadius="lg" shadow="md" m="md">
-          <Typography as="h2" variant="h3" color="text" p="sm">Welcome</Typography>
-          <Typography color="textSecondary">This is your dashboard content.</Typography>
-        </Box>
-      </Box>
-    </Box>
-  );
-};
-```
-
-### Form Component
+### 1. Always Use Fallbacks
 
 ```tsx
-const Form = () => {
-  return (
-    <Box bg="surface" p="lg" borderRadius="lg" shadow="md">
-      <Typography as="h2" variant="h3" color="primary" p="sm">Contact Form</Typography>
-      
-      <Box style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <input 
-          placeholder="Name"
-          style={{
-            padding: theme.spacing.sm,
-            border: `1px solid ${theme.colors.border}`,
-            borderRadius: theme.borderRadius.md,
-            fontSize: theme.typography.fontSize.base
-          }}
-        />
-        
-        <Button variant="primary" fullWidth>
-          Submit
-        </Button>
-      </Box>
-    </Box>
-  );
-};
+// ✅ Good
+const { getColor } = useStyled();
+const color = getColor('primary', '#007bff');
+
+// ❌ Bad
+const color = theme.colors.primary; // No fallback
 ```
+
+### 2. Handle SSR Properly
+
+```tsx
+// ✅ Good
+const { isHydrated, theme } = useTheme();
+if (!isHydrated) return <LoadingSpinner />;
+
+// ❌ Bad
+const { theme } = useTheme(); // May cause hydration mismatch
+```
+
+### 3. Use Theme Validation
+
+```tsx
+// ✅ Good
+import { isValidTheme } from 'react-theme-system';
+const theme = isValidTheme(userTheme) ? userTheme : 'light';
+
+// ❌ Bad
+const theme = userTheme; // No validation
+```
+
+### 4. CSS Variables for Performance
+
+```tsx
+// ✅ Good - CSS variables are more performant
+const { colorVar } = useStyled();
+<div style={{ backgroundColor: colorVar('primary') }} />
+
+// ❌ Bad - Direct theme access
+<div style={{ backgroundColor: theme.colors.primary }} />
+```
+
+## 🔄 Migration Guide
+
+### From v1.0.2 to v1.0.3
+
+1. **ThemeProvider Props**: New optional props added
+   ```tsx
+   // New props (all optional)
+   <ThemeProvider 
+     themes={themes}
+     defaultTheme="light"
+     onChange={(theme) => {}}
+     enablePersistence={true}
+   >
+   ```
+
+2. **useTheme Hook**: New properties available
+   ```tsx
+   const { 
+     currentTheme,    // New
+     isHydrated,      // New
+     setTheme,        // New
+     resetCustomTheme // New
+   } = useTheme();
+   ```
+
+3. **useStyled Hook**: Enhanced with fallbacks
+   ```tsx
+   // All getter functions now accept fallback parameters
+   const color = getColor('primary', '#fallback');
+   ```
 
 ## 🤝 Contributing
 
@@ -521,19 +440,15 @@ const Form = () => {
 2. Create a feature branch
 3. Make your changes
 4. Add tests
-5. Submit a pull request
+5. Run the test suite
+6. Submit a pull request
 
 ## 📄 License
 
-MIT License - see LICENSE file for details
+MIT License - see LICENSE file for details.
 
 ## 🆘 Support
 
-- 📖 [Documentation](https://github.com/salehammar/react-theme-system)
+- 📖 [Documentation](https://github.com/salehammar/react-theme-system/wiki)
 - 🐛 [Issues](https://github.com/salehammar/react-theme-system/issues)
-- 💬 [Discussions](https://github.com/salehammar/react-theme-system/
-discussions)
-
----
-
-Built with ❤️ for the React community
+- 💬 [Discussions](https://github.com/salehammar/react-theme-system/discussions)

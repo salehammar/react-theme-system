@@ -1,12 +1,21 @@
 import { Theme, StyledStyles, ThemeTokenPath } from '../types';
 export declare const useStyled: () => {
-    styled: (styles: Record<string, ThemeTokenPath | string | number>) => StyledStyles;
-    getColor: (color: keyof Theme["colors"]) => string;
-    getSpacing: (spacing: keyof Theme["spacing"]) => string;
-    getTypography: (typography: keyof Theme["typography"]["fontSize"]) => string;
-    getShadow: (shadow: keyof Theme["shadows"]) => string;
-    getBorderRadius: (radius: keyof Theme["borderRadius"]) => string;
-    getTransition: (transition: keyof Theme["transitions"]) => string;
+    styled: (styles: Record<string, ThemeTokenPath | string | number>, fallbacks?: Record<string, string | number>) => StyledStyles;
+    getColor: (color: keyof Theme["colors"], fallback?: string) => string;
+    getSpacing: (spacing: keyof Theme["spacing"], fallback?: string) => string;
+    getTypography: (typography: keyof Theme["typography"]["fontSize"], fallback?: string) => string;
+    getShadow: (shadow: keyof Theme["shadows"], fallback?: string) => string;
+    getBorderRadius: (radius: keyof Theme["borderRadius"], fallback?: string) => string;
+    getTransition: (transition: keyof Theme["transitions"], fallback?: string) => string;
+    getFontWeight: (weight: keyof Theme["typography"]["fontWeight"], fallback?: number) => number;
+    getFontFamily: (family: keyof Theme["typography"]["fontFamily"], fallback?: string) => string;
     responsive: (breakpoint: keyof Theme["breakpoints"], styles: StyledStyles) => Record<string, StyledStyles>;
+    cssVar: (name: string, fallback?: string) => string;
+    colorVar: (color: keyof Theme["colors"], fallback?: string) => string;
+    spacingVar: (spacing: keyof Theme["spacing"], fallback?: string) => string;
+    fontSizeVar: (size: keyof Theme["typography"]["fontSize"], fallback?: string) => string;
+    shadowVar: (shadow: keyof Theme["shadows"], fallback?: string) => string;
+    radiusVar: (radius: keyof Theme["borderRadius"], fallback?: string) => string;
     theme: Theme;
+    isHydrated: boolean;
 };

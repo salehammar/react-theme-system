@@ -1,5 +1,8 @@
-# Source files
+# Source files (except specific files we want to include)
 src/
+!src/styles/theme-fallbacks.css
+
+# Examples and demos
 examples/
 demo/
 
@@ -7,16 +10,21 @@ demo/
 .github/
 .eslintrc.json
 tsconfig.json
+jest.config.js
 *.log
 node_modules/
 
-# Build artifacts
-dist/
+# Build artifacts (dist is included in package.json)
 coverage/
 
-# Documentation
+# Documentation (README.md is included in package.json)
 PACKAGE_SUMMARY.md
-*.md
+USER_WORKFLOW_VERIFICATION.md
+USER_EXPERIENCE_REPORT.md
+WIKI_UPDATE_SUMMARY.md
+PUBLISH_CHECKLIST.md
+ENHANCEMENTS_SUMMARY.md
+enhancments.md
 
 # Git
 .git/

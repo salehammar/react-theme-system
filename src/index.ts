@@ -1,7 +1,17 @@
 // Core Theme System
-export { ThemeProvider, useTheme } from './ThemeProvider';
+export { ThemeProvider, useTheme, VALID_THEMES, type ValidTheme } from './ThemeProvider';
 export { useStyled } from './hooks';
 export { defaultTheme } from './themes';
+
+// Theme Utilities
+export { 
+  createThemeConfig, 
+  isValidTheme, 
+  getStoredTheme, 
+  setStoredTheme,
+  themeToCSSVariables,
+  applyThemeToDOM
+} from './utils/theme-helpers';
 
 // Styled Components
 export { Box, Typography, Button } from './styled';
